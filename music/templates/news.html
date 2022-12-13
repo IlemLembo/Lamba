@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+{% if data %}
+<main class="table" ><!--style="margin: 0 15%;"-->
+    <section class="table_header">
+        <h1 style="text-align: center;">Music</h1>
+        
+    </section>
+    <section class="table_body">
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Image</th>
+                    <th>Genre musical</th>
+                    <th>Date d'ajout</th>
+                    <th>Auteur</th>
+                    <th>Album</th>
+                    <th>Prix</th>
+                    <th>Acheter?</th>
+                </tr>
+            </thead>
+            {% for music in data %}
+                <tbody>
+                    <tr>
+                        <td>{{ music.id }}</td>
+                        <td><img src="{{ music.image.url }}" alt="image" style="width: 36px;
+                            height: 36px;
+                            margin-right: 0.5rem;
+                            border-radius: 50%;
+                            vertical-align: middle;"></td>
+                        <td>{{ music.genre }}</td>
+                        <td>{{ music.date_created }}</td>
+                        <td>{{ music.creator }}</td>
+                        {% if music.albums %}
+                            <td>{{ music.albums }}</td>
+                        {% else %}
+                            <td style="text-align: center;">----</td>
+                        {% endif %}
+                        <td><strong>{{ music.price }}</strong></td>
+                        {% if music.creator == user %}
+                            <td ><a href={% url 'player' music.id %}><button type="button" class="btn btn-success">Ecouter</button></a></td>
+                        {% else %}
+                            <td><button type="button" class="btn btn-primary">Acheter</button></td>
+
+                        {% endif %}
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </section>
+</main>
+{% else %}
+<div class="table_header" style='
+text-align: center;
+width: 70%;
+height: 20%;
+margin: 10% 15%;
+color: gold;'>
+    <h1>
+        <strong>
+            Pas encore d'audio, Soyez le premier à publier!😎
+        </strong>
+    </h1>
+</div>
+
+{% endif %}
+
+
+{% endblock content %}

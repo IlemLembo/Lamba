@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!--
+    <div class="big_container"  style=" position: relative;background-color:rgba(255, 0, 100, 0.25);">
+-->
+    <!--add this eventuially:   margin-left: 20%;padding:  0% 15%;background-color:rgba(255, 0, 100, 0.25);-->
+    <!--style="margin-left: 20%;margin-right: 10%; background-color:rgba(255, 0, 100, 0.25); position: relative;"-->
+    <!--<div class="shadow-lg p-3 mb-5 bg-white rounded" style="background: black;"><center><h1 class="display-4" style="color: black;"><strong>Coucou</strong></h1></center></div>-->
+
+{% if data %}
+    <main class="table" >
+        <section class="table_header">
+            <h1 style="text-align: center;">Music</h1>
+
+        </section>
+        <section class="table_body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Image</th>
+                        <th>Genre musical</th>
+                        <th>Date d'ajout</th>
+                        <th>Auteur</th>
+                        <th>Album</th>
+                        <th>Prix</th>
+                        <th>Acheter?</th>
+                    </tr>
+                </thead>
+                {% for music in data %}
+                    <tbody>
+                        <tr>
+                            <td>{{ music.id }}</td>
+                            <td><img src="{{ music.image.url }}" alt="image" style="width: 36px;
+                                height: 36px;
+                                margin-right: 0.5rem;
+                                border-radius: 50%;
+                                vertical-align: middle;"></td>
+                            <td>{{ music.genre }}</td>
+                            <td>{{ music.date_created }}</td>
+                            <td>{{ music.creator }}</td>
+                            {% if music.albums %}
+                                <td>{{ music.albums }}</td>
+                            {% else %}
+                                <td style="text-align: center;">----</td>
+                            {% endif %}
+                            <td><strong>{{ music.price }}</strong></td>
+                            {% if music.id in owned_music  or music.creator == user %}
+                                <td><a href={% url 'player' music.id %}><button type="button" class="btn btn-success">Ecouter</button></a></td>
+                            {% else %}
+                                <td><button type="button" class="btn btn-primary">Acheter</button></td>
+
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </section>
+    </main>
+    
+{% else %}
+
+<div class="table_header" style='
+text-align: center;
+width: 70%;
+height: 20%;
+margin: 10% 15%;
+color: gold;'>
+    <h1>
+        <strong>
+            Pas encore d'audio, Soyez le premier à publier!😎
+        </strong>
+    </h1>
+</div>
+
+{% endif %}
+
+
+{% endblock content %}

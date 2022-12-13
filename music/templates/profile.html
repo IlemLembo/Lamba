@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="update_form" style="justify-content: center; align-items:center">
+
+    <form method=POST enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_username" style="color: white; font-size: 25px; text-align: center;"><strong>Nom d’utilisateur</strong></label>
+            <input type="text" name="username" value='{{ request.user.username }}' class="form-control" maxlength="150" required id="id_username" aria-describedby="usernameHelp">
+            <small id="usernameHelp" class="form-text text" style="color: white">Tapez si vous voulez changer votre nom d'Utilisateur<br>Requis. 150 caractères maximum. Uniquement des lettres, nombres et les caractères « @ », « . », « + », « - » et « _ ».</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_lastname" style="color: white;font-size: 25px; text-align: center;">Nom de famille</label>
+            <input type="text" class="form-control" value="{{ request.user.lastname }}"  name="lastname" maxlength="30" id="id_lastname" placeholder="Nom">
+        </div>
+        <div class="form-group">
+            <label for="id_firstname" style="color: white;font-size: 25px; text-align: center;">Prénoms</label>
+            <input type="text" class="form-control" value="{{ request.user.firstname }}" name="firstname" maxlength="100" id="id_firstname" placeholder="Prénoms">
+        </div>
+        <div class="form-group">
+            <label for="id_email" style="color: white;font-size: 25px; text-align: center;">Email</label>
+            <input type="email" name="email"  class="form-control" value='{{ request.user.email }}' maxlength="254" id="id_email" placeholder="Email">    
+        </div>
+
+        <label for="id_profile_photo" style="color: white; font-size: 25px;">Photo de Profil</label>
+        <div class="input-group mb-3">
+            
+            <div>
+                <input type="file" name="profile_photo" value="{{ request.user.profile_photo }}" accept="image/*" id="id_profile_photo" >
+            </div>
+        </div>
+        <div class="input_area">
+            <label for="id_gender" style="font-size: 25px; color:white">Sexe</label>
+            <select name="gender" id="id_gender" style="background-color: gold;">
+                <option value="" selected>Selectionner votre sexe</option>
+            
+                <option value="M">Masculin</option>
+            
+                <option value="F">Feminin</option>
+            </select>
+        </div>
+
+        <label for="id_bio" style="font-size: 25px; color:white; ">Votre Bio</label>
+        <div class="form-group">
+            
+            <textarea name="bio" cols="40" value="{{ request.user.bio }}"  rows="10" id="id_bio" style="background-color: beige; border-radius: 10%;">
+            </textarea>
+        </div>
+        <label for="id_phone" style="font-size: 25px; color:white; justify-content: center;">Numero de Telephone</label>
+        <div class="form-group">
+
+            <input type="text" name="phone"  maxlength="30" id="id_phone"  value="{{ request.user.phone }}" style="color: grey; margin: 0 30%;">
+                
+        </div>
+
+
+
+        <button type="submit" class="btn btn-success" style="margin: 0 40%;">Mettre à jour</button>
+    </form>
+</div>
+{% endblock content %}

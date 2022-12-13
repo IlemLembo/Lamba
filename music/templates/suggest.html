@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="update_form" style="margin: 0 20.5%; height:80%; background: #fff5; border-radius: 15px; width: 60%; overflow: auto;">
+    <div class="title" style='text-align: center; color: gold;'>
+        <h1>Boite à Suggestions</h1>
+    </div>
+
+    <form method="post" id="suggest" action="{% url 'suggest' %}">
+
+        <!--{{ form }}-->
+        {% csrf_token %}
+
+        <div class="form-group" style="margin: 0 15%; width: 50%;">
+            <textarea name="content" cols="60"  rows="10" required id="id_content" style="background-color: whitesmoke; border-radius: 10%;" minlength="50" maxlength="4000" >
+            </textarea>
+            <small>{{ form.content.error }}</small>
+        </div>
+        <div class="submit_btn" style='align-items: center ; justify-content: center;'>
+            <button type="submit" class="btn btn-success" form="suggest">Soumettre</button>
+        </div>
+
+    </form>
+
+</div>
+
+
+{% endblock content %}

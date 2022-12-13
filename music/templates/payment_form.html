@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="update_form">
+    <form action="{% url 'payment' %}" method="post">
+    
+Nom	Description	Requis
+auth_token	Jeton d’authentification de l’e-commerce (Clé API)	OUI
+phone_number	Numéro de téléphone mobile du Client	OUI
+amount	Montant de la transaction sans la devise (Devise par défaut: FCFA)	OUI
+description	Détails de la transaction	NON
+identifier	Identifiant interne de la transaction de l’e-commerce. Cet identifian
+
+
+        <div>
+            <input type="number" name="phone_number" id="id_phone_number">
+        </div>
+        <label for="id_amount" style="color: white; font-size: 25px;">Prix</label>
+        <div class="input_area">
+            
+            <select name="amount" required id="id_amount">
+                <option value="" selected>Selectionnez le prix</option>
+                
+                <option value="2000 Fcfa">2000 Fcfa</option>
+                
+                <option value="3000 Fcfa">3000 Fcfa</option>
+                
+                <option value="4000 Fcfa">4000 Fcfa</option>
+                
+                <option value="5000 Fcfa">5000 Fcfa</option>
+                
+                <option value="6000 Fcfa">6000 Fcfa</option>
+                
+                <option value="10000 Fcfa">10000 Fcfa</option>
+                
+                </select>
+        </div>
+        <div>
+            <select name="network" required id="id_network">
+                <option value="" selected>Selectionnez le prix</option>
+                
+                <option value="TMONEY">TMONEY</option>
+                
+                <option value="FLOOZ">FLOOZ</option>
+            
+        </div>
+        <div>
+            <input type="number" name="phone_number" id="id_phone_number">
+            <small>Entrez le numero de telephone que vous souhaitez débiter</small>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-success">Payer</button>
+    </form>
+
+
+</div>
+
+
+
+{% endblock content %}

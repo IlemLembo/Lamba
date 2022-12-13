@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Consortium d'artistes Lamba &copy;</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />    
+	<link href="{% static 'templatemo-style.css'%}" rel="stylesheet" />
+	<link href="{% static 'all.min.css' %}" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/2d211be41f.js" crossorigin="anonymous"></script>
+</head>
+<!--
+
+Simple House
+
+https://templatemo.com/tm-539-simple-house
+
+-->
+<body> 
+
+	<div class="container">
+	<!-- Top box -->
+		<!-- Logo & Site Name -->
+		<div class="placeholder">
+			<div class="parallax-window" data-parallax="scroll" data-image-src={% static "lointain.jpg "%}>
+				<div class="tm-header">
+					<div class="row tm-header-inner">
+						<div class="col-md-6 col-12">
+							<img src={% static "simple-house-logo.png" %} alt="Logo" class="tm-site-logo" /> 
+							<div class="tm-site-text-box">
+								<h1 class="tm-site-title">Consortium d'artistes Lamba &copy;</h1>
+								<h6 class="tm-site-description">news</h6>	
+							</div>
+						</div>
+						<nav class="col-md-6 col-12 tm-nav">
+							<ul class="tm-nav-ul">
+                                <li class="tm-nav-li"><a href="{% url 'home' %}" class="tm-nav-link">home</a></li>
+								<li class="tm-nav-li"><a href="{% url 'about' %}" class="tm-nav-link">About</a></li>
+
+                                {% if user.is_authenticated %}
+								    <li class="tm-nav-li"><a href={% url 'logout' %} class="tm-nav-link">Logout</a></li>
+                                {% else %}
+								    <li class="tm-nav-li"><a href="{% url 'login' %}" class="tm-nav-link">Login</a></li>
+                                {% endif %}
+							</ul>
+						</nav>	
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<main>
+			<header class="row tm-welcome-section">
+                {% if user.is_authenticated %}
+
+                    {% if user.gender == 'null' %}
+                        <h2 class="col-12 text-center tm-section-title">Soyez le/la Bienvenue</h2>
+                    {% else %}
+                        {% if user.gender == 'Masculin' %}
+				        <h2 class="col-12 text-center tm-section-title">Soyez le Bienvenue , {{ request.user }}</h2>
+                        {% else %}
+                            {% if user.gender == 'Feminin'%}
+                                <h2 class="col-12 text-center tm-section-title">Soyez la Bienvenue, {{ request.user }}</h2>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    <h2 class="col-12 text-center tm-section-title">Soyez le/la Bienvenue</h2>
+                {% endif %}
+                
+				<p class="col-12 text-center">Que vous soyez là pour Apprendre ou vous divertir? Nous vous reservons de bonnes surprises. Laissez vous portez par la nostalgie en ecoutant les artistes que vous connaissiez déjà ou en découvrant ceux qui Nous ont rejoints dans cette belle aventure! </p>
+			</header>
+			
+			<div class="tm-paging-links">
+				<nav>
+					<ul>
+						<li class="tm-paging-item"><a href="#" class="tm-paging-link active">Chanson Traditonnelles</a></li>
+						<li class="tm-paging-item"><a href="#" class="tm-paging-link">De l' RnB</a></li>
+						<li class="tm-paging-item"><a href="#" class="tm-paging-link">Du Rap</a></li>
+						<li class="tm-paging-item"><a href="#" class="tm-paging-link">Des chanson D'amour</a></li>
+						<li class="tm-paging-item"><a href="#" class="tm-paging-link">Des chansons nostalgiques</a></li>
+					</ul>
+				</nav>
+			</div>
+
+
+			<!-- Gallery -->
+			<div class="row tm-gallery">
+				<!-- gallery page 1 -->
+				<div id="tm-gallery-page-pizza" class="tm-gallery-page">
+					{% if data %}
+						{% for music in data  %}
+							<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
+								<figure>
+									<img src="{{ music.image.url }}" alt="Image" class="img-fluid tm-gallery-img" style="height: 275px;"/>
+									<figcaption>
+										<h4 class="tm-gallery-title">{{ music.title }}</h4>
+										<p class="tm-gallery-description">{{ music.genre }}</p>
+										<p class="tm-gallery-price">{{ music.price }}</p>
+									</figcaption>
+								</figure>
+							</article>
+						{% endfor %}
+					{% endif %}
+				</div> <!-- gallery page 1 -->
+				
+				
+			</div>
+			<div class="tm-section tm-container-inner">
+				<div class="row">
+					<div class="col-md-6">
+						<figure class="tm-description-figure">
+							<img src={% static "tambour.jpg" %} alt="Image" class="img-fluid" />
+						</figure>
+					</div>
+					<div class="col-md-6">
+						<div class="tm-description-box"> 
+							<h4 class="tm-gallery-title">Mettez vos casque , branchez vos baffles ✨!</h4>
+							<p class="tm-mb-45">Nous vous promettons une belle expérience musicale. Que vous soyez dans votre voiture ou sur la piste de danse, si vous êtes Lamba:<br>   <strong>Vous danserez!🕺</strong></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<footer class="tm-footer text-center">
+			<p>Consortium d'artistes Lamba &copy;</p>
+		</footer>
+	</div>
+	<script src={%static "jquery.min.js"%}></script>
+	<script src={% static "parallax.min.js" %}></script>
+	<script>
+		$(document).ready(function(){
+			// Handle click on paging links
+			$('.tm-paging-link').click(function(e){
+				e.preventDefault();
+				
+				var page = $(this).text().toLowerCase();
+				$('.tm-gallery-page').addClass('hidden');
+				$('#tm-gallery-page-' + page).removeClass('hidden');
+				$('.tm-paging-link').removeClass('active');
+				$(this).addClass("active");
+			});
+		});
+	</script>
+</body>
+</html>
